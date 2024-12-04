@@ -1,0 +1,56 @@
+<div class="main raised-box">
+  <h1>Account {{ account.accountNumber }}</h1>
+
+  <h2>Current Balance: ${{ account.balance?.toFixed(2) }}</h2>
+  
+  <div>
+    <button (click)="elementToShow = 'deposit'; depositAmount = 1;">Make Deposit</button>
+    <button (click)="elementToShow = 'withdrawal'; withdrawalAmount = (account.balance && account.balance < 1 ? account.balance : 1);">Make Withdrawal</button>
+  </div>
+
+  <div class="raised-box">
+    @if (elementToShow == 'deposit') {
+      <h3>Make Deposit</h3>
+  
+      <form #depositForm='ngForm' (ngSubmit)="makeDeposit()">
+        <div>
+          $<input type='number' name='depositAmount' min="0" [(ngModel)]='depositAmount'>
+        </div>
+        
+        @if (depositAmount < 0 || !depositAmount) {
+          <div class="error">Deposit amount must be greater than 0</div>
+        }
+
+        <div>
+          <button type="button" (click)="elementToShow = 'none';">Cancel</button>
+          <button type="submit" (click)="elementToShow = 'none';">Deposit</button>
+        </div>
+      </form>
+    }
+
+    @if (elementToShow == 'withdrawal') {
+      <h3>Make Withdrawal</h3>
+  
+      <form #withdrawalForm='ngForm' (ngSubmit)="makeWithdrawal()">
+        <div>
+          $<input type='number' name='depositAmount' min="0" [(ngModel)]='withdrawalAmount'>
+        </div>
+        @if (withdrawalAmount < 0 || !withdrawalAmount) {
+          <div class="error">Withdrawal amount must be greater than 0</div>
+        }
+        @if ((account.balance || account.balance === 0) && withdrawalAmount > account.balance) {
+          <div class="error">You can not withdraw more than your current balance</div>
+        }
+        <div>
+          <button type="button" (click)="elementToShow = 'none';">Cancel</button>
+          <button
+            type="submit"
+            (click)="elementToShow = 'none';"
+            [disabled]="!withdrawalAmount || withdrawalAmount < 0 || ((account.balance || account.balance === 0) && withdrawalAmount > account.balance)"
+          >Withdraw</button>
+        </div>
+      </form>
+    }
+  </div>
+  
+</div>

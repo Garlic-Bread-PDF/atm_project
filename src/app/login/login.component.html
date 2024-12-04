@@ -1,0 +1,17 @@
+<div class="main raised-box">
+  <h2>Log In</h2>
+
+  @if (invalidLogin) {
+    <div class="error">Invalid account # or PIN</div>
+  }
+
+  <form #accountForm='ngForm' (ngSubmit)="onSubmit()">
+    <input name='accountNumber' placeholder="Account #" required [(ngModel)]='account.accountNumber'>
+
+    <input name='pinNumber' placeholder="PIN" required [(ngModel)]='account.pinNumber'>
+
+    <button type="submit" [disabled]="!account.accountNumber || !account.pinNumber">Log In</button>
+
+    <a routerLink="/create-account">Create Account</a>
+  </form>
+</div>
