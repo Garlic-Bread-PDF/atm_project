@@ -1,6 +1,5 @@
 package com.example.atmproject;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -28,36 +27,28 @@ public class AccountResource {
     this.accountService = accountService;
   }
 
-  @GetMapping("/all")
-  public ResponseEntity<List<Account>> getAllAccounts() {
-    List<Account> accounts = accountService.findAllAccounts();
-    return new ResponseEntity<>(accounts, HttpStatus.OK);
-  }
-
-  @GetMapping("/login")
-  public ResponseEntity<Optional<Account>> loginToAccount(@RequestParam String accountNumber, @RequestParam String pinNumber) throws AccountNotFoundException {
-    Optional<Account> account = accountService.getAccountByAccountNumberAndPin(accountNumber, pinNumber);
-    return new ResponseEntity<>(account, HttpStatus.OK);
-  }
-
+  // Get the account with the given account number and pin if one exists
   @GetMapping("/get-account")
   public ResponseEntity<Optional<Account>> getAccountByAccountNumberAndPin(@RequestParam String accountNumber, @RequestParam String pinNumber) throws AccountNotFoundException {
     Optional<Account> account = accountService.getAccountByAccountNumberAndPin(accountNumber, pinNumber);
     return new ResponseEntity<>(account, HttpStatus.OK);
   }
 
+  // Create the given account
   @PostMapping("/add")
   public ResponseEntity<Account> addAccount(@RequestBody Account account) {
     Account newAccount = accountService.addAccount(account);
     return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
   }
 
+  // Update the given account
   @PutMapping("/update")
   public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
     Account updatedAccount = accountService.updateAccount(account);
     return new ResponseEntity<>(updatedAccount, HttpStatus.OK);
   }
 
+  // Delete the given account
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<?> deleteAccount(@RequestBody String accountNumber) {
     accountService.deleteAccount(accountNumber);

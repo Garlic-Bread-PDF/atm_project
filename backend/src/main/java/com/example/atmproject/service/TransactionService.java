@@ -18,11 +18,13 @@ public class TransactionService {
     this.transactionRepo = transactionRepo;
   }
 
-  public Transaction addTransaction(Transaction transaction) {
-    return transactionRepo.save(transaction);
+  // Get all transactions for the given account
+  public List<Transaction> findTransactionsByAccount(Account account) {
+    return transactionRepo.findTransactionsByAccountOrderByDateDesc(account);
   }
 
-  public List<Transaction> findTransactionsByAccount(Account account) {
-    return transactionRepo.findTransactionsByAccount(account);
+  // Create the given transaction
+  public Transaction addTransaction(Transaction transaction) {
+    return transactionRepo.save(transaction);
   }
 }

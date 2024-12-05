@@ -55,11 +55,16 @@
 
     @if (elementToShow == 'transactions') {
       <h3>Transaction History</h3>
-      <ul>
-        @for (transaction of transactions; track transaction.date) {
-          <li>{{ transaction.date.toLocaleString() }}: {{ transaction.type === 'deposit' ? 'Deposited' : 'Withdrew' }} ${{ transaction.amount.toFixed(2) }}</li>
-        }
-      </ul>
+      @if (transactions.length > 0) {
+        <ul>
+          @for (transaction of transactions; track transaction.date) {
+            <li>{{ transaction.date.toLocaleString() }}: {{ transaction.type === 'deposit' ? 'Deposited' : 'Withdrew' }} ${{ transaction.amount.toFixed(2) }}</li>
+          }
+        </ul>
+      }
+      @if (transactions.length === 0) {
+        <h5 style="margin: 10px;">No Transactions Found</h5>
+      }
     }
   </div>
   

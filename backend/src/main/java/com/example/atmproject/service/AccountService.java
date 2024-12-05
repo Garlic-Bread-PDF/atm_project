@@ -1,6 +1,5 @@
 package com.example.atmproject.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -20,23 +19,23 @@ public class AccountService {
     this.accountRepo = accountRepo;
   }
 
+  // Get the account with the given account number and pin if one exists
+  public Optional<Account> getAccountByAccountNumberAndPin(String accountNumber, String pinNumber) throws AccountNotFoundException {
+    return accountRepo.findAccountByAccountNumberAndPinNumber(accountNumber, pinNumber);
+  }
+
+  // Create the given account if it doesn't already exist
   public Account addAccount(Account account) {
     if (!accountRepo.findAccountByAccountNumber(account.getAccountNumber()).isEmpty()) return null;
     else return accountRepo.save(account);
   }
 
-  public List<Account> findAllAccounts() {
-    return accountRepo.findAll();
-  }
-
+  // Update the given account
   public Account updateAccount(Account account) {
     return accountRepo.save(account);
   }
 
-  public Optional<Account> getAccountByAccountNumberAndPin(String accountNumber, String pinNumber) throws AccountNotFoundException {
-    return accountRepo.findAccountByAccountNumberAndPinNumber(accountNumber, pinNumber);
-  }
-
+  // Delete the given account
   public void deleteAccount(String accountNumber) {
     accountRepo.deleteAccountByAccountNumber(accountNumber);
   }

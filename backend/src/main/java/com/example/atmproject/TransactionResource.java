@@ -22,12 +22,15 @@ public class TransactionResource {
     this.transactionService = transactionService;
   }
 
+  // Get all transactions for the given account
+  // This is a post request instead of a get request to allow passing the account object as a param
   @PostMapping("/get-transactions")
   public ResponseEntity<List<Transaction>> findTransactionsByAccount(@RequestBody Account account) {
     List<Transaction> transactions = transactionService.findTransactionsByAccount(account);
     return new ResponseEntity<>(transactions, HttpStatus.CREATED);
   }
 
+  // Create the given transaction
   @PostMapping("/add")
   public ResponseEntity<Transaction> addAccount(@RequestBody Transaction transaction) {
     Transaction newTransaction = transactionService.addTransaction(transaction);

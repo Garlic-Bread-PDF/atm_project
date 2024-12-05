@@ -11,20 +11,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'atmprojectapp';
+  title = 'atm_project';
 
-  public accounts!: Account[];
+  constructor() {}
 
-  constructor(private accountService: AccountService) {}
-
-  ngOnInit(): void {
-    this.getAccounts();
-  }
-
-  public getAccounts(): void {
-    this.accountService.getAccounts().subscribe({
-      next: (response: Account[]) => this.accounts = response,
-      error: (error: HttpErrorResponse) => alert(error.message)
-    })
-  }
+  ngOnInit(): void {}
 }

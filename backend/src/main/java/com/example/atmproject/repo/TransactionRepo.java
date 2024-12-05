@@ -8,5 +8,5 @@ import com.example.atmproject.model.Account;
 import com.example.atmproject.model.Transaction;
 
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
-  List<Transaction> findTransactionsByAccount(Account account);
+  List<Transaction> findTransactionsByAccountOrderByDateDesc(Account account);
 }

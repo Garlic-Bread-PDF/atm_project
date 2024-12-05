@@ -16,10 +16,13 @@ export class LoginComponent {
 
   constructor(private router: Router, private accountService: AccountService) {}
 
+  // Attempt to login with the account number and pin given by the user
   onSubmit() {
     this.accountService.getAccountByAccountNumberAndPin(this.account).subscribe({
       next: (response) => {
-        if (response) this.router.navigateByUrl('/account', { state: { accountNumber: response.accountNumber, pinNumber: response.pinNumber } });
+        // Redirect to the account page if the given login info is valid
+        if (response) this.router.navigateByUrl('/account', { state: { accountNumber: response.accountNumber, pinNumber: response.pinNumber }});
+        // Display an error message if the given login info was invalid
         else this.invalidLogin = true;
       },
       error: (error) => alert(error.message)

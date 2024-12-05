@@ -12,15 +12,17 @@ import { Account } from '../account';
 })
 export class CreateAccountComponent {
   account: Account = { accountNumber: '', pinNumber: '', balance: 0 };
-  invalidLogin: boolean = false;
+  accountAlreadyExists: boolean = false;
 
   constructor(private router: Router, private accountService: AccountService) {}
 
   onSubmit() {
     this.accountService.addAccount(this.account).subscribe({
       next: (response) => {
-        if (response) this.router.navigateByUrl('/account', { state: { accountNumber: response.accountNumber, pinNumber: response.pinNumber } });
-        else this.invalidLogin = true;
+        // Redirect to the account page if the given account doesn't already exist
+        if (response) this.router.navigateByUrl('/account', { state: { accountNumber: response.accountNumber, pinNumber: response.pinNumber }});
+        // Display an error message if the given account already exists
+        else this.accountAlreadyExists = true;
       },
       error: (error) => alert(error.message)
     });

@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.atmproject.model.Account;
 
 public interface AccountRepo extends JpaRepository<Account, String> {
-  void deleteAccountByAccountNumber(String accountNumber);
-
-  Optional<Account> findAccountByAccountNumberAndPinNumber(String accountNumber, String pinNumber);
-
   Optional<Account> findAccountByAccountNumber(String accountNumber);
+  
+  Optional<Account> findAccountByAccountNumberAndPinNumber(String accountNumber, String pinNumber);
+  
+  void deleteAccountByAccountNumber(String accountNumber);
 }
