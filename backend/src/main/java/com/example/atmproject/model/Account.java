@@ -1,6 +1,8 @@
 package com.example.atmproject.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -8,8 +10,13 @@ import jakarta.persistence.*;
 public class Account implements Serializable {
   @Id
   private String accountNumber;
+
   private String pinNumber;
+
   private Float balance;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountNumber")
+  private List<Account> transactionList = new ArrayList<>();
 
   public Account() {}
 

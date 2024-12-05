@@ -6,9 +6,10 @@
   <div>
     <button (click)="elementToShow = 'deposit'; depositAmount = 1;">Make Deposit</button>
     <button (click)="elementToShow = 'withdrawal'; withdrawalAmount = (account.balance && account.balance < 1 ? account.balance : 1);">Make Withdrawal</button>
+    <button (click)="getTransactions()">Show Transaction History</button>
   </div>
 
-  <div class="raised-box">
+  <div class="raised-box" style="overflow: scroll;">
     @if (elementToShow == 'deposit') {
       <h3>Make Deposit</h3>
   
@@ -50,6 +51,15 @@
           >Withdraw</button>
         </div>
       </form>
+    }
+
+    @if (elementToShow == 'transactions') {
+      <h3>Transaction History</h3>
+      <ul>
+        @for (transaction of transactions; track transaction.date) {
+          <li>{{ transaction.date.toLocaleString() }}: {{ transaction.type === 'deposit' ? 'Deposited' : 'Withdrew' }} ${{ transaction.amount.toFixed(2) }}</li>
+        }
+      </ul>
     }
   </div>
   

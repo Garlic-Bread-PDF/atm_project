@@ -46,9 +46,18 @@ a {
   margin: 15px;
 }
 
+ul {
+  margin: 20px;
+}
+
+li {
+  padding: 2px;
+}
+
 .main {
   margin-top: 100px;
   padding: 20px;
+  max-height: 60vh;
 }
 
 .raised-box {
